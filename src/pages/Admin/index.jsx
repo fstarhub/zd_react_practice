@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { getUser } from '../../utils/cookie'
 
@@ -13,10 +13,7 @@ export default class Admin extends Component {
     // }
     if (!getUser()) {
       return (
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="*" element={<Login />}></Route>
-        </Routes>
+        <Navigate to='/login' element={<Login />} />
       )
     }
     return (

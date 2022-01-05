@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
-export default class Login extends Component {
+import Admin from '../Admin'
+class Login extends Component {
   render() {
+    // 如果用户登录跳到主页
+    if (this.props.user) {
+      return (
+        <Navigate to='/admin' element={<Admin />} />
+      )
+    }
     return (
       <div>
         Login,,,
@@ -9,3 +18,15 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect(
+  state => {
+    console.log(state.user)
+    return {user: state.user}
+  },
+  dispatch => {
+    return {
+
+    }
+  }
+)(Login)
