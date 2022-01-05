@@ -20,7 +20,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    setUser('feng')
+    // setUser('')
   }
 }
 
