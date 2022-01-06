@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import './index.less'
 import { connect } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { doLogin } from '../../redux/action/user'
 
 import { Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-// import './index.less'
+import './index.less'
 
 import logo from './images/logo.png'
 
@@ -20,7 +20,7 @@ class Login extends Component {
     }
     return (
       <div className='login'>
-        <header>
+        <header className="login-header">
           <img src={logo} alt="logo" />
           <h1>购物吧：后台管理系统</h1>
         </header>
@@ -72,8 +72,9 @@ class Login extends Component {
     )
   }
 
-  onFinish = () => {
-    console.log('sbmit')
+  onFinish = (user) => {
+    console.log('sbmit', user)
+    this.props.receive_user(user)
   }
 }
 
@@ -84,7 +85,7 @@ export default connect(
   },
   dispatch => {
     return {
-
+      receive_user: user => dispatch(doLogin(user))
     }
   }
 )(Login)
