@@ -73,14 +73,14 @@ class Login extends Component {
   }
 
   onFinish = (user) => {
-    console.log('sbmit', user)
+    // console.log('sbmit', user)
     this.props.receive_user(user)
   }
 }
 
 export default connect(
   state => {
-    console.log(state.user, 'Login容器user')
+    // console.log(state.user, 'Login容器user')
     return {user: state.user}
   },
   dispatch => {
