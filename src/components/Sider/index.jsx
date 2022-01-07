@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import './index.less'
 import { Menu, Layout } from 'antd'
 import {
   MenuUnfoldOutlined,
@@ -9,6 +10,7 @@ import {
   UploadOutlined,
 } from '@ant-design/icons'
 const { Sider } = Layout
+
 
 export default class SiderNav extends Component {
   render() {
