@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import menuList from '../../config/menu'
 import './index.less'
 import { Menu, Layout } from 'antd'
 import {
@@ -9,7 +10,9 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons'
+import Item from 'antd/lib/list/Item'
 const { Sider } = Layout
+const { SubMenu } = Menu
 
 
 export default class SiderNav extends Component {
@@ -20,15 +23,28 @@ export default class SiderNav extends Component {
         <Sider trigger={null} collapsible collapsed={this.props.collapsed}>
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              nav 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              nav 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              nav 3
-            </Menu.Item>
+            {
+              menuList.map(menuItem => {
+                if (menuItem.children) {
+                  const childItem = menuItem.children
+                  childItem.map(childMenuItem => {
+                    return (
+                      <SubMenu key={menuItem.key} icon={menuItem.icon} title={menuItem.title}>
+                      <Menu.Item key={childMenuItem.key}>{childMenuItem.title}</Menu.Item>
+                    </SubMenu>
+                    )
+                  })
+                  
+                } else {
+                  return (
+                    <Menu.Item key={menuItem.key} icon={menuItem.icon}>
+                      {menuItem.title}
+                    </Menu.Item>
+                  )
+                }
+                
+              })
+            }
           </Menu>
         </Sider>
       </>
