@@ -18,7 +18,7 @@ import {
 const menuList = [
   {
     title: '首页', // 菜单标题名称
-    key: "/home",// 对应的 path
+    key: "/admin/home",// 对应的 path
     icon: <HomeOutlined/>, // 图标名称
     isPublic: true  //所有用户都可以访问这个页面，针对权限
   },
@@ -30,12 +30,12 @@ const menuList = [
       // 子菜单列表
       {
         title: '品类管理',
-        key: '/category',
+        key: '/admin/category',
         icon: <BarsOutlined/>
       },
       {
         title: '商品管理',
-        key: '/product',
+        key: '/admin/product',
         icon: <ToolOutlined/>
       }
     ]

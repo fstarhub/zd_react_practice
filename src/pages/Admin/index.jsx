@@ -11,6 +11,8 @@ import SiderNav from '../../components/Sider'
 import HeaderNav from '../../components/Header'
 import ContentNav from '../../components/Content'
 import Home from '../Home'
+import Product from '../Product'
+import Category from '../Category'
 
 export default class Admin extends Component {
 
@@ -18,11 +20,11 @@ export default class Admin extends Component {
     collapsed: false,
   }
   render() {
-    if (!getUser()) {
-      return (
-        <Navigate to='/login' element={<Login />} />
-      )
-    }
+    // if (!getUser()) {
+    //   return (
+    //     <Navigate to='/login' element={<Login />} />
+    //   )
+    // }
     return (
       <Fragment>
         <Layout id="components-layout-demo-custom-trigger">
@@ -31,8 +33,10 @@ export default class Admin extends Component {
           <HeaderNav collapsed={this.state.collapsed} updateCollapsed={this.newCollapsed} />
           <ContentNav>
             <Routes>
-              <Route path="/home" element={<Home></Home>}></Route>
-              <Route path="*" element={<Home></Home>}></Route>
+              <Route index path="/home" element={<Home />}></Route>
+              <Route path="/category" element={<Category />}></Route>
+              <Route path="/product" element={<Product />}></Route>
+              <Route path="*" element={<Home />}></Route>
             </Routes>
             {/* <Outlet/> */}
             {/* <Home/> */}
@@ -52,6 +56,10 @@ export default class Admin extends Component {
     () => {
       console.log('collapsed状态已更新')
     })
+  }
+
+  componentDidMount() {
+    
   }
 
 }
