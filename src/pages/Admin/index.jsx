@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
 
 import { Layout, Menu } from 'antd'
 import './index.less'
@@ -10,6 +10,7 @@ import Login from '../Login'
 import SiderNav from '../../components/Sider'
 import HeaderNav from '../../components/Header'
 import ContentNav from '../../components/Content'
+import Home from '../Home'
 
 export default class Admin extends Component {
 
@@ -28,7 +29,14 @@ export default class Admin extends Component {
         <SiderNav collapsed={this.state.collapsed} />
         <Layout className="site-layout">
           <HeaderNav collapsed={this.state.collapsed} updateCollapsed={this.newCollapsed} />
-          <ContentNav />
+          <ContentNav>
+            <Routes>
+              <Route path="/home" element={<Home></Home>}></Route>
+              <Route path="*" element={<Home></Home>}></Route>
+            </Routes>
+            {/* <Outlet/> */}
+            {/* <Home/> */}
+          </ContentNav>
         </Layout>
         </Layout>
       </Fragment>

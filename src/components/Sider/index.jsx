@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
+import { Link, Navigate } from 'react-router-dom'
+
+import Logo from '../../pages/Login/images/logo.png'
 
 
 import './index.less'
 import { Menu, Layout } from 'antd'
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons'
+// import {
+//   MenuUnfoldOutlined,
+//   MenuFoldOutlined,
+//   UserOutlined,
+//   VideoCameraOutlined,
+//   UploadOutlined,
+// } from '@ant-design/icons'
 // import Item from 'antd/lib/list/Item'
 import menuList from '../../config/menu'
 const { Sider } = Layout
@@ -32,7 +35,9 @@ export default class SiderNav extends Component {
       if (!item.children) {
         return (
           <Menu.Item key={item.key} icon={item.icon}>
+            <Link to={item.key}>
             {item.title}
+            </Link>
           </Menu.Item>
         )
       } else {
@@ -51,8 +56,10 @@ export default class SiderNav extends Component {
     return (
       <>
         <Sider trigger={null} collapsible collapsed={this.props.collapsed}>
-          <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <div className="logo">
+            <img className='logoImg' src={Logo} alt="购物吧" />
+          </div>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']}>
             {
               this.state.menuList
             }

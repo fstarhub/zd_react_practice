@@ -5,6 +5,7 @@ const { Content } = Layout
 
 export default class ContentNav extends Component {
   render() {
+    console.log(this.props.children)
     return (
       <>
         <Content
@@ -15,7 +16,7 @@ export default class ContentNav extends Component {
               minHeight: 280,
             }}
           >
-            Content
+            {this.props.children}
           </Content>
       </>
     )

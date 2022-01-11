@@ -12,7 +12,7 @@ export default class App extends Component {
       <Fragment>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/admin" element={<Admin />}></Route>
+          <Route path="/admin/*" element={<Admin />}></Route>
           <Route path="*" element={<Login />}></Route>
         </Routes>
       </Fragment>

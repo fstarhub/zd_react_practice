@@ -1,19 +1,33 @@
 import React, { Component } from 'react'
 
-import { Layout } from 'antd'
+import { Layout, Button, Menu, Dropdown } from 'antd'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
+  DownOutlined
 } from '@ant-design/icons'
 import './index.less'
 
 const { Header } = Layout
 
 export default class HeaderNav extends Component {
+
   render() {
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          <a href="https://www.antgroup.com">我的信息</a>
+        </Menu.Item>
+        <Menu.Item key="1">
+          <a href="https://www.aliyun.com">修改密码</a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="3">退出</Menu.Item>
+      </Menu>
+    )
     return (
       <>
         <Header className="site-layout-background" style={{ padding: 0 }}>
@@ -21,6 +35,15 @@ export default class HeaderNav extends Component {
               className: 'trigger',
               onClick: this.toggle,
             })}
+            <div className="logoOut">
+              <span className='welcomeUser'>欢迎您：XXXXX</span>
+              {/* <Button type="link" size='large'>
+                Link
+              </Button> */}
+              <Dropdown overlay={menu}>
+                <a href='##' className="ant-dropdown-link" onClick={e => e.preventDefault()}>设置 <DownOutlined /></a>
+              </Dropdown>
+            </div>
           </Header>
       </>
     )
