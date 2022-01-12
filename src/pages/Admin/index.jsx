@@ -13,6 +13,11 @@ import ContentNav from '../../components/Content'
 import Home from '../Home'
 import Product from '../Product'
 import Category from '../Category'
+import User from '../User'
+import Role from '../Role'
+import Bar from '../Charts/bar'
+import Line from '../Charts/line'
+import Pie from '../Charts/pie'
 
 export default class Admin extends Component {
 
@@ -20,11 +25,11 @@ export default class Admin extends Component {
     collapsed: false,
   }
   render() {
-    // if (!getUser()) {
-    //   return (
-    //     <Navigate to='/login' element={<Login />} />
-    //   )
-    // }
+    if (!getUser()) {
+      return (
+        <Navigate to='/login' element={<Login />} />
+      )
+    }
     return (
       <Fragment>
         <Layout id="components-layout-demo-custom-trigger">
@@ -36,10 +41,13 @@ export default class Admin extends Component {
               <Route index path="/home" element={<Home />}></Route>
               <Route path="/category" element={<Category />}></Route>
               <Route path="/product" element={<Product />}></Route>
+              <Route path="/user" element={<User />}></Route>
+              <Route path="/role" element={<Role />}></Route>
+              <Route path="/charts/bar" element={<Bar />}></Route>
+              <Route path="/charts/line" element={<Line />}></Route>
+              <Route path="/charts/pie" element={<Pie />}></Route>
               <Route path="*" element={<Home />}></Route>
             </Routes>
-            {/* <Outlet/> */}
-            {/* <Home/> */}
           </ContentNav>
         </Layout>
         </Layout>

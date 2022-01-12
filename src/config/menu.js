@@ -42,12 +42,12 @@ const menuList = [
   },
   {
     title: '用户管理',
-    key: '/user',
+    key: '/admin/user',
     icon: <UserOutlined/>
   },
   {
     title: '角色管理',
-    key: '/role',
+    key: '/admin/role',
     icon: <SafetyOutlined/>
   },
   {
@@ -57,16 +57,16 @@ const menuList = [
     children: [
       {
         title: '柱形图',
-        key: '/charts/bar',
+        key: '/admin/charts/bar',
         icon: <BarChartOutlined />
       },
       {
         title: '折线图',
-        key: '/charts/line',
+        key: '/admin/charts/line',
         icon: <LineChartOutlined/>
       }, {
         title: '饼图',
-        key: '/charts/pie',
+        key: '/admin/charts/pie',
         icon: <PieChartOutlined/>
       },
     ]
