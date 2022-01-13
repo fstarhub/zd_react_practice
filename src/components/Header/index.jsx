@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+
+import { removeUser } from '../../utils/cookie'
 
 import { Layout, Button, Menu, Dropdown } from 'antd'
 import {
@@ -11,9 +15,15 @@ import {
 } from '@ant-design/icons'
 import './index.less'
 
+
+
 const { Header } = Layout
 
 export default class HeaderNav extends Component {
+
+  componentWillUnmount() {
+    removeUser()
+  }
 
   render() {
     const menu = (
@@ -40,7 +50,7 @@ export default class HeaderNav extends Component {
               {/* <Button type="link" size='large'>
                 Link
               </Button> */}
-              <Dropdown overlay={menu}>
+              <Dropdown overlay={menu} trigger={'click'}>
                 <a href='##' className="ant-dropdown-link" onClick={e => e.preventDefault()}>设置 <DownOutlined /></a>
               </Dropdown>
             </div>
@@ -52,4 +62,7 @@ export default class HeaderNav extends Component {
   toggle = () => {
     this.props.updateCollapsed()
   }
+  // loginOut = () => {
+  //   // console.log('sdsd',this)
+  // }
 }
