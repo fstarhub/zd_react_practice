@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { doLogin } from '../../redux/action/user'
 
 import { Form, Input, Button, Checkbox } from 'antd'
@@ -15,7 +15,7 @@ class Login extends Component {
     // 如果用户登录跳到主页
     if (this.props.user) {
       return (
-        <Navigate to='/admin' element={<Admin />} />
+        <Redirect to='/' />
       )
     }
     return (

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Routes,Route } from 'react-router-dom'
+import { Switch,Route } from 'react-router-dom'
 
 import { setUser } from './utils/cookie'
 
@@ -10,11 +10,10 @@ export default class App extends Component {
   render() {
     return (
       <Fragment>
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/admin/*" element={<Admin />}></Route>
-          <Route path="*" element={<Login />}></Route>
-        </Routes>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/" component={Admin}></Route>
+        </Switch>
       </Fragment>
     )
   }
