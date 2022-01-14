@@ -18,8 +18,8 @@ export default class App extends Component {
     )
   }
 
-  componentDidMount() {
-    setUser('shuai')
-  }
+  // componentDidMount() {
+  //   setUser('shuai')
+  // }
 }
 

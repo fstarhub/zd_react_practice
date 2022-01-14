@@ -5,7 +5,7 @@ const { Content } = Layout
 
 export default class ContentNav extends Component {
   render() {
-    console.log(this.props.children)
+    // console.log(this.props.children)
     return (
       <>
         <Content

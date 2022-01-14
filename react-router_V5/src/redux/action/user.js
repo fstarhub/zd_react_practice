@@ -1,5 +1,5 @@
 // action
-import { setUser } from '../../utils/cookie'
+import { setUser, removeUser } from '../../utils/cookie'
 import { RECEIVE_USER, LOGINOUT_USER } from '../action-types'
 
 // 登录
@@ -10,6 +10,7 @@ export function receive_user(user) {
 export const login_out = (data) => {
   return { type: LOGINOUT_USER, data: data}
 }
+
 
 // 异步登录
 export const doLogin = (user) => {
@@ -26,5 +27,13 @@ export const doLogin = (user) => {
       username: 'admin',
       id: '610a39764f93334154bb3520'
     }))
+  }
+}
+
+// 异步退出
+export function doLogout (data) {
+  return dispatch => {
+    removeUser()
+    dispatch(login_out(data))
   }
 }

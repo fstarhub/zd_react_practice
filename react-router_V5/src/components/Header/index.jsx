@@ -1,31 +1,32 @@
 import React, { Component } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-
+import { doLogout } from '../../redux/action/user'
 import { removeUser } from '../../utils/cookie'
 
-import { Layout, Button, Menu, Dropdown } from 'antd'
+import { Layout, Button, Menu, Dropdown, Modal, message } from 'antd'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
-  DownOutlined
+  DownOutlined,
+  ExclamationCircleOutlined
 } from '@ant-design/icons'
 import './index.less'
 
-
-
 const { Header } = Layout
 
-export default class HeaderNav extends Component {
+class HeaderNav extends Component {
 
-  componentWillUnmount() {
-    removeUser()
-  }
+  // componentWillUnmount() {
+  //   removeUser()
+  // }
 
   render() {
+    // console.log(this.props, 'props')
     const menu = (
       <Menu>
         <Menu.Item key="0">
@@ -35,7 +36,7 @@ export default class HeaderNav extends Component {
           <a href="https://www.aliyun.com">修改密码</a>
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="3">退出</Menu.Item>
+        <Menu.Item key="3" onClick={this.logout}>退出</Menu.Item>
       </Menu>
     )
     return (
@@ -62,7 +63,32 @@ export default class HeaderNav extends Component {
   toggle = () => {
     this.props.updateCollapsed()
   }
-  // loginOut = () => {
-  //   // console.log('sdsd',this)
-  // }
+  logout = () => {
+    Modal.confirm({
+      icon: <ExclamationCircleOutlined />,
+      content: '确定要退出吗',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        this.props.login_out('')
+        this.props.history.replace('/login')
+      },
+      onCancel: () => {
+        message.success('已取消')
+      }
+    });
+  }
 }
+
+export default connect(
+  state => {
+    return {}
+  },
+  // dispatch => {
+  //   return {
+  //     login_out: param => {dispatch(login_out(param))}
+  //   }
+  // }
+
+  {login_out: doLogout}
+)(withRouter(HeaderNav))
