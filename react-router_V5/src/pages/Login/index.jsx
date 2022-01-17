@@ -34,7 +34,7 @@ class Login extends Component {
               onFinish={this.onFinish}
             >
               <Form.Item
-                name="username"
+                name="user_name"
                 rules={[
                     {required: true, message: '请输入用户名称'},
                     {min: 4, message: '最少长度为4位'},
@@ -73,7 +73,7 @@ class Login extends Component {
   }
 
   onFinish = (user) => {
-    // console.log('sbmit', user)
+    console.log('sbmit', user)
     this.props.receive_user(user)
   }
 }

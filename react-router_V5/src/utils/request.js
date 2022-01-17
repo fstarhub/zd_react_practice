@@ -7,7 +7,7 @@ import 'nprogress/nprogress.css'
 
 // 创建案axios实例
 const service = axios.create({
-  baseURL: process.env.REACT_APP_URL,
+  baseURL: process.env.REACT_APP_URL + '/api',
   timeout: 5000
 })
 

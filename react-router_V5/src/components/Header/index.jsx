@@ -47,7 +47,7 @@ class HeaderNav extends Component {
               onClick: this.toggle,
             })}
             <div className="logoOut">
-              <span className='welcomeUser'>欢迎您：XXXXX</span>
+              <span className='welcomeUser'>欢迎您：{this.props.user_name}</span>
               {/* <Button type="link" size='large'>
                 Link
               </Button> */}
@@ -82,7 +82,7 @@ class HeaderNav extends Component {
 
 export default connect(
   state => {
-    return {}
+    return {user_name: state.user.user_name}
   },
   // dispatch => {
   //   return {

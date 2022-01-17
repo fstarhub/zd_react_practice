@@ -2,6 +2,9 @@
 import { setUser, removeUser } from '../../utils/cookie'
 import { RECEIVE_USER, LOGINOUT_USER } from '../action-types'
 
+// 引入api模块
+import UserApi from '../../api/user'
+
 // 登录
 export function receive_user(user) {
   return { type: RECEIVE_USER,data: user }
@@ -14,19 +17,15 @@ export const login_out = (data) => {
 
 // 异步登录
 export const doLogin = (user) => {
-  return dispatch => {
-    setUser({
-      create_time: 1628060022887,
-      password: '21232f297a57a5a743894a0e4a801fc3',
-      username: 'admin',
-      id: '610a39764f93334154bb3520'
-    })
-    dispatch(receive_user({
-      create_time: 1628060022887,
-      password: '21232f297a57a5a743894a0e4a801fc3',
-      username: 'admin',
-      id: '610a39764f93334154bb3520'
-    }))
+  return async dispatch => {
+    const res = await UserApi.login(user)
+    if (res.message === '用户登录成功') {
+      setUser(res.result.userInfo)
+      dispatch(receive_user(res.result.userInfo))
+    } else {
+      setUser('')
+      return
+    }
   }
 }
 
