@@ -1,20 +1,23 @@
 import axios from 'axios'
 import { message } from 'antd'
 
+import { getToken } from './cookie'
+
 // Nprogress进度条
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 // 创建案axios实例
 const service = axios.create({
-  baseURL: process.env.REACT_APP_URL + '/api',
+  // baseURL: process.env,
+  baseURL: window.location.origin + '/api',
   timeout: 5000
 })
 
 // request拦截器
 service.interceptors.request.use((config) => {
   Nprogress.start()
-  const token = 'feng'
+  const token = getToken()
   config.headers['Token'] = token
   config.headers.Authorization = token
   return config

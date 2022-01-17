@@ -73,7 +73,6 @@ class Login extends Component {
   }
 
   onFinish = (user) => {
-    console.log('sbmit', user)
     this.props.receive_user(user)
   }
 }
