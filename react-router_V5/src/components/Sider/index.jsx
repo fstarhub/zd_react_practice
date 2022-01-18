@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import Logo from '../../pages/Login/images/newLogo.png'
+import Logo from '../../pages/Login/images/logo.png'
 
 
 import './index.less'
