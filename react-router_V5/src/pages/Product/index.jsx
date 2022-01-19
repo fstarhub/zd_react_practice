@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import './index.less'
 import ProductApi from '../../api/product'
 
-import { Table, Space, Pagination, message  } from 'antd'
+import { Table, Space, Pagination, message, Button  } from 'antd'
 const { Column } = Table
 
 export default class Product extends Component {
@@ -87,17 +88,30 @@ export default class Product extends Component {
           <Column title="商品编号" dataIndex="id" key="id" align='center' />
           <Column title="商品价格(元)" dataIndex="goods_price" key="goods_price" align='center' />
           <Column title="剩余数量" dataIndex="goods_num" key="goods_num" align='center' />
-          <Column title="上架时间" dataIndex="createdAt" key="createdAt" align='center' />
-          <Column title="更新时间" dataIndex="updatedAt" key="updatedAt" align='center' />
-          <Column title="商品状态" dataIndex="deletedAt" key="deletedAt" align='center' />
+          <Column title="上架时间" dataIndex="createdAt" key="createdAt" align='center'
+            render={(text, recode, index) => {
+              return moment(text).format('YYYY-MM-DD')
+            }} />
+          <Column title="更新时间" dataIndex="updatedAt" key="updatedAt" align='center'
+            render={(text, recode, index) => {
+              return moment(text).format('YYYY-MM-DD')
+            }}/>
+          <Column title="商品状态" dataIndex="deletedAt" key="deletedAt" align='center'
+            render={(text, recode, index) => {
+              if (text) {
+                return '已下架'
+              } else {
+                return '上架中'
+              }
+            }} />
           <Column
             title="操作"
             key="action"
             align='center'
-            render={(text, record) => (
+            render={(row) => (
               <Space size="middle">
-                <a>Invite {record.lastName}</a>
-                <a>Delete</a>
+                <Button>Invite</Button>
+                <Button onClick={this.deleteItem(row)} danger>删除商品</Button>
               </Space>
             )}
           />
@@ -144,6 +158,12 @@ export default class Product extends Component {
       this.setState({total: res.result.total, productData: data, loading: false})
     } else {
       message.warning(res.message)
+    }
+  }
+
+  // 删除商品
+  deleteItem = (row) => {
+    return () => {
     }
   }
 
