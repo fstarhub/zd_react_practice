@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import './index.less'
+import ProductApi from '../../api/product'
 
-import { Table, Space, Pagination  } from 'antd'
+import { Table, Space, Pagination, message  } from 'antd'
 const { Column } = Table
 
 export default class Product extends Component {
@@ -56,69 +58,25 @@ export default class Product extends Component {
         align: 'center',
       },
     ],
-    productData: [
-      {
-        goods_name: 'lisi'
-      },
-      {
-        goods_name: 'lisi'
-      },
-      {
-        goods_name: 'lisi'
-      },
-      {
-        goods_name: 'lisi'
-      },
-      {
-        goods_name: 'lisi'
-      },
-      {
-        goods_name: 'lisi'
-      },
-      {
-        goods_name: 'lisi'
-      },
-    ]
+    productData: [],
+    total: 0,
+    // page
   }
   render() {
-    const { loading, productTitle, productData} = this.state
-    // const data = [
-    //   {
-    //     key: '1',
-    //     index: 'John Brown',
-    //     money: '￥300,000.00',
-    //     address: 'New York No. 1 Lake Park',
-    //   },
-    //   {
-    //     key: '2',
-    //     index: 'Jim Green',
-    //     money: '￥1,256,000.00',
-    //     address: 'London No. 1 Lake Park',
-    //   },
-    //   {
-    //     key: '3',
-    //     index: 'Joe Black',
-    //     money: '￥120,000.00',
-    //     address: 'Sidney No. 1 Lake Park',
-    //   },
-    // ];
+    const { loading, productTitle, productData, total} = this.state
     return (
       <>
         <Table
-          // loading={loading}
+          loading={loading}
           // columns={productTitle}
           dataSource={productData}
           bordered
-          pagination={{
-            pageSize: 5,
-            showQuickJumper: true,
-            showSizeChanger: true,
-            pageSizeOptions: [5, 10, 15, 20]
-          }}
+          pagination={false}
         >
           <Column
             title="序号"
             align='center'
+            width={'70px'}
             render={(text, record, index) => (
               <Space size="middle">
                 {index+1}
@@ -144,13 +102,49 @@ export default class Product extends Component {
             )}
           />
         </Table>
-        {/* <Pagination
-          total={85}
-          showSizeChanger
-          showQuickJumper
-          showTotal={total => `Total ${total} items`}
-        /> */}
+        <div className="pagination">
+          <Pagination
+            total={total}
+            showSizeChanger
+            showQuickJumper
+            onChange={this.pageChange}
+            showTotal={total => `共 ${total} 条`}
+          />
+        </div>
+        
       </>
     )
   }
+
+  async componentDidMount() {
+    const data = {
+      pageSize: 10,
+      pageNum: 1
+    }
+    await this.getPageData(data)
+    
+  }
+
+  pageChange = async(page, pageSize) => {
+    const param = {
+      pageSize: pageSize,
+      pageNum: page
+    }
+    this.getPageData(param)
+  }
+
+  // 获取分页数据
+  getPageData = async(param) => {
+    const res = await ProductApi.findAllGoods(param)
+    if (res.message === 'Success') {
+      const data = res.result.list.map(item => {
+        item.key = item.id
+        return item
+      })
+      this.setState({total: res.result.total, productData: data, loading: false})
+    } else {
+      message.warning(res.message)
+    }
+  }
+
 }
