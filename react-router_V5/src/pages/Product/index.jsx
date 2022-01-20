@@ -110,7 +110,8 @@ export default class Product extends Component {
             align='center'
             render={(row) => (
               <Space size="middle">
-                <Button>Invite</Button>
+                <Button type='primary' disabled={row.deletedAt ? false : true} onClick={this.onshelf(row.id)}>上架</Button>
+                <Button type='primary' disabled={row.deletedAt} danger onClick={this.offshelf(row.id)}>下架</Button>
                 <Button onClick={this.deleteItem(row)} danger>删除商品</Button>
               </Space>
             )}
@@ -130,16 +131,12 @@ export default class Product extends Component {
     )
   }
 
-  async componentDidMount() {
-    const data = {
-      pageSize: 10,
-      pageNum: 1
-    }
-    await this.getPageData(data)
+  componentDidMount() {
+    this.pageChange()
     
   }
 
-  pageChange = async(page, pageSize) => {
+  pageChange = async(page = 1, pageSize = 10) => {
     const param = {
       pageSize: pageSize,
       pageNum: page
@@ -161,9 +158,41 @@ export default class Product extends Component {
     }
   }
 
+  // 商品上架
+  offshelf = (id) => {
+    return async() => {
+      const res = await ProductApi.offShelf(id)
+      if (res.message === '商品下架成功') {
+        message.success(res.message)
+        this.pageChange()
+      } else {
+        message.warning(res.message)
+      }
+    }
+  }
+  // 商品下架
+  onshelf = (id) => {
+    return async() => {
+      const res = await ProductApi.onShelf(id)
+      if (res.message === '商品上架成功') {
+        message.success(res.message)
+        this.pageChange()
+      } else {
+        message.warning(res.message)
+      }
+    }
+  }
+
   // 删除商品
   deleteItem = (row) => {
-    return () => {
+    return async() => {
+      const res = await ProductApi.delGoods(row.id)
+      if (res.message === '删除商品成功') {
+        message.success(res.message)
+        this.pageChange()
+      } else {
+        message.warning(res.message)
+      }
     }
   }
 
