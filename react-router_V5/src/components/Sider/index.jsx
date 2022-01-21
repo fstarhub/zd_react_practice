@@ -45,7 +45,7 @@ class SiderNav extends Component {
       } else {
         // 查找与路由匹配得菜单
         const childItem = item.children.find(child => pathname.indexOf(child.key) === 0)
-        console.log(childItem, 'childItem')
+        // console.log(childItem, 'childItem')
         if (childItem) { // 如果存在，需要展开当前菜单
           this.openKey = item.key
         }
@@ -64,8 +64,8 @@ class SiderNav extends Component {
     // 获取当前选择得路由路径
     const pathname = this.props.location.pathname
     // 得到需要展开的菜单key
-    const openKey = this.openKey
-    console.log(openKey, 'openkey', typeof(openKey))
+    // const openKey = this.openKey
+    // console.log(openKey, 'openkey', typeof(openKey))
     return (
       <>
         <Sider trigger={null} collapsible collapsed={this.props.collapsed}>
