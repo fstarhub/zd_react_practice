@@ -347,11 +347,30 @@ export default class Category extends Component {
     }
   }
 
-  handleSave = (row) => {
-    console.log('reow')
+  handleSave = async(row) => {
+    const id = row.id
+    const param = {
+      goods_name: row.goods_name,
+      goods_price: row.goods_price * 1,
+      goods_num: row.goods_num * 1,
+      goods_img: row.goods_img
+    }
+    const res = await ProductApi.updateOne(id, param)
+    if (res.message === '修改商品成功') {
+      message.success(res.message)
+      this.pageChange()
+    } else {
+      message.warning(res.message)
+    }
   }
 
-  handDelete = (record) => {
-    console.log(record, 'reocd')
+  handDelete = async(record) => {
+    const res = await ProductApi.delGoods(record.id)
+    if (res.message === '删除商品成功') {
+      message.success(res.message)
+      this.pageChange()
+    } else {
+      message.warning(res.message)
+    }
   }
 }

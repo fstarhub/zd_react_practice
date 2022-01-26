@@ -45,6 +45,7 @@ export default class ProductApi {
 
   // 更新商品
   static updateOne(id, param) {
+    console.log(id, param)
     return request({
       url: '/goods/' + id,
       method: 'put',
