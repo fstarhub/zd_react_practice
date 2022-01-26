@@ -365,7 +365,7 @@ export default class Category extends Component {
   }
 
   handDelete = async(record) => {
-    const res = await ProductApi.delGoods(record.id)
+    const res = await ProductApi.foceDelGoods(record.id)
     if (res.message === '删除商品成功') {
       message.success(res.message)
       this.pageChange()

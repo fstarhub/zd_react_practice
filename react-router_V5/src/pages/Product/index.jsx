@@ -112,7 +112,7 @@ export default class Product extends Component {
               <Space size="middle">
                 <Button type='primary' disabled={text.deletedAt ? false : true} onClick={this.onshelf(text.id)}>上架</Button>
                 <Button type='primary' disabled={text.deletedAt} danger onClick={this.offshelf(text.id)}>下架</Button>
-                <Button onClick={this.deleteItem(text)} danger>删除商品</Button>
+                {/* <Button onClick={this.deleteItem(text)} danger>删除商品</Button> */}
               </Space>
             )}
           />
