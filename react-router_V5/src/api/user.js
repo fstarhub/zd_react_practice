@@ -25,6 +25,13 @@ export default class UserApi {
     })
   }
 
+  static findAll() {
+    return request({
+      url: '/users/findAll',
+      method: 'post',
+    })
+  }
+
   static test() {
     console.log('ceshi')
   }
