@@ -47,7 +47,7 @@ export default class Role extends Component {
               <Column title="更新时间" dataIndex={'updatedAt'} key="updatedAt" align='center' />
           </Table>
         </Card>
-        <Modal destroyOnClose title="添加角色" visible={isAddRole} onOk={this.handleOk} onCancel={this.handleCancel} footer={null}>
+        <Modal destroyOnClose title="添加角色" visible={isAddRole} onCancel={this.handleCancel} footer={null}>
           <AddForm closeAddRoleForm={this.closeAddRoleForm} />
         </Modal>
       </>
@@ -76,15 +76,16 @@ export default class Role extends Component {
   //   })
   // }
 
-  // handleCancel = () => {
-  //   this.setState({
-  //     isAddRole: false
-  //   })
-  // }
+  handleCancel = () => {
+    this.setState({
+      isAddRole: false
+    })
+  }
 
   closeAddRoleForm = () => {
     this.setState({
       isAddRole: false
     })
+    this.getAllRoles()
   }
 }
