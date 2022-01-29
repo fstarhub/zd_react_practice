@@ -1,7 +1,14 @@
+/*
+ * @Description: 角色页面
+ * @Autor: fengshuai
+ * @Date: 2022-01-14 09:19:04
+ * @LastEditors: fengshuai
+ * @LastEditTime: 2022-01-28 09:19:03
+ */
 import React, { Component } from 'react'
 
 import RoleApi from '../../api/role'
-import AddForm from '../../components/role/add_form'
+import AddForm from '../../components/Role/add_form'
 import { Card, Table, Button, Modal } from 'antd'
 const { Column } = Table
 
@@ -36,10 +43,10 @@ export default class Role extends Component {
               selectedRowKeys: []
             }}
             pagination={{
-              defaultPageSize: 5,
+              defaultPageSize: 10,
               showQuickJumper: true,
               showSizeChanger: true,
-              pageSizeOptions: [5, 10,15, 20]
+              pageSizeOptions: [10, 15, 20]
             }}
             >
               <Column title="角色名称" dataIndex={'role_name'} key="role_name" align='center' />

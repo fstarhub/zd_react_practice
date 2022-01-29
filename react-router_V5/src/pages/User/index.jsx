@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Button, Card, Table } from 'antd'
+import { Button, Card, message, Table, Space, Modal, Popconfirm } from 'antd'
+
+import UpdateForm from '../../components/User/update_form'
 
 import UserApi from '../../api/user'
 
@@ -10,10 +12,11 @@ export default class User extends Component {
   state = {
     loading: false,
     userList: [],
-    isAddUserModal: false,
+    editUserVisible: false,
+    titleName: ''
   }
   render() {
-    const { loading, userList } = this.state
+    const { loading, userList, editUserVisible, titleName } = this.state
     const title = (
       <span>
         <Button type='primary' onClick={this.addUser}>创建用户</Button>
@@ -26,38 +29,107 @@ export default class User extends Component {
             bordered
             loading={loading}
             dataSource={userList}
-            rowKey={'role_id'}
+            rowKey={'createdAt'}
             pagination={{
-              defaultPageSize: 5,
+              defaultPageSize: 10,
               showQuickJumper: true,
               showSizeChanger: true,
-              pageSizeOptions: [5, 10,15, 20]
+              pageSizeOptions: [10, 15, 20]
             }}
             >
               <Column title="用户名" dataIndex={'user_name'} key="user_name" align='center' />
               <Column title="角色名称" dataIndex={'role_name'} key="role_name" align='center' />
               <Column title="用户电话" dataIndex={'user_phone'} key="user_phone" align='center' />
               <Column title="用户邮箱" dataIndex={'user_mailbox'} key="user_mailbox" align='center' />
-              <Column title="创建时间" dataIndex={'createAt'} key="createAt" align='center' />
+              <Column title="创建时间" dataIndex={'createdAt'} key="createdAt" align='center' />
+              <Column title="操作" key="operate" align='center' width={'300px'}
+                render={(text) => {
+                  return (
+                    <Space size="middle">
+                      <Button type='primary' onClick={() => { this.editUser(text) }}>修改</Button>
+                      <Popconfirm title="确定删除当前用户吗" onConfirm={() => this.deleteUser(text.id, text.user_name)} >
+                        <Button danger>删除</Button>
+                      </Popconfirm>
+                      {/* <Button type='primary' onClick={this.deleteUser(text.id, text.user_name)} danger>删除</Button> */}
+                    </Space>
+                  )
+                }}
+              />
           </Table>
         </Card>
+        <Modal destroyOnClose footer={null} title={titleName} visible={editUserVisible} onCancel={this.closeEditUserVisible}>
+          <UpdateForm closeUpdateUserForm={this.closeEditUserVisible} updateUser={this.updateUser} />
+        </Modal>
       </>
     )
   }
 
   componentDidMount() {
-    // this.init()
+    this.init()
   }
 
   init = () => {
-    // UserApi.findAll().then((res) => {
-    // })
+    UserApi.findAll().then((res) => {
+      if (res.message === 'Success') {
+        this.setState({userList: res.result})
+      } else {
+        message.warning(res.message)
+      }
+    })
   }
 
   addUser = () => {
-    this.init()
     this.setState({
-      isAddUserModal: true
+      editUserVisible: true,
+      titleName: '新增用户'
     })
+  }
+
+  editUser = (param) => {
+    console.log(param)
+    this.setState({
+      editUserVisible: true,
+      titleName: '修改用户信息'
+    })
+  }
+
+  deleteUser = (id, user_name) => {
+    console.log('eeee')
+    const param = {
+      id,
+      user_name
+    }
+    UserApi.delOne(param).then(res => {
+      if (res.message === 'Success') {
+        message.success('删除用户成功')
+        this.init()
+      } else {
+        message.warning(res.message)
+      }
+    })
+    // return () => {
+    //   const param = {
+    //     id,
+    //     user_name
+    //   }
+    //   UserApi.delOne(param).then(res => {
+    //     if (res.message === 'Success') {
+    //       message.success('删除用户成功')
+    //       this.init()
+    //     } else {
+    //       message.warning(res.message)
+    //     }
+    //   })
+    // }
+  }
+
+  closeEditUserVisible = () => {
+    this.setState({
+      editUserVisible: false
+    })
+  }
+
+  updateUser = () => {
+    this.init()
   }
 }

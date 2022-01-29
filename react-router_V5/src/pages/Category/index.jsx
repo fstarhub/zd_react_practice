@@ -163,7 +163,7 @@ export default class Category extends Component {
         render: (text, record) => (
           <Space size="middle">
             <Popconfirm title="确定删除当前数据吗" onConfirm={() => this.handDelete(record)} >
-            <Button danger>删除</Button>
+              <Button danger>删除</Button>
             </Popconfirm>
             {/* <Button onClick={this.deleteItem(record)} danger>删除</Button> */}
           </Space>

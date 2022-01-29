@@ -32,6 +32,23 @@ export default class UserApi {
     })
   }
 
+  // 新增用户
+  static newAdd(data) {
+    return request({
+      url: '/users/newAdd',
+      method: 'post',
+      data,
+    })
+  }
+  // 删除用户
+  static delOne(data) {
+    return request({
+      url: '/users/delOne',
+      method: 'post',
+      data,
+    })
+  }
+
   static test() {
     console.log('ceshi')
   }

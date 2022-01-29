@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import 'default-passive-events' // 阻止控制开鼠标事件警告
+// import 'default-passive-events' // 阻止控制开鼠标事件警告
 
 import store from './redux/store'
 
