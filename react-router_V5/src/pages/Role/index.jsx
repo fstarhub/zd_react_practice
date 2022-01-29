@@ -9,7 +9,7 @@ import React, { Component } from 'react'
 
 import RoleApi from '../../api/role'
 import AddForm from '../../components/Role/add_form'
-import { Card, Table, Button, Modal } from 'antd'
+import { Card, Table, Button, Modal, Space, Popconfirm, message } from 'antd'
 const { Column } = Table
 
 export default class Role extends Component {
@@ -52,6 +52,17 @@ export default class Role extends Component {
               <Column title="角色名称" dataIndex={'role_name'} key="role_name" align='center' />
               <Column title="创建时间" dataIndex={'createdAt'} key="createdAt" align='center' />
               <Column title="更新时间" dataIndex={'updatedAt'} key="updatedAt" align='center' />
+              <Column title="操作"  key="operator" align='center'
+                render={(text) => {
+                  return (
+                    <Space size="middle">
+                      <Popconfirm title="确定删除当前角色吗" onConfirm={() => this.deleteRole(text.role_id)} >
+                        <Button danger>删除</Button>
+                      </Popconfirm>
+                    </Space>
+                  )
+                }}
+              />
           </Table>
         </Card>
         <Modal destroyOnClose title="添加角色" visible={isAddRole} onCancel={this.handleCancel} footer={null}>
@@ -94,5 +105,16 @@ export default class Role extends Component {
       isAddRole: false
     })
     this.getAllRoles()
+  }
+
+  deleteRole = (role_id) => {
+    RoleApi.delRole({role_id}).then(res => {
+      if (res.message === 'Success') {
+        message.success('删除成功')
+        this.getAllRoles()
+      } else {
+        message.warning(res.message)
+      }
+    })
   }
 }

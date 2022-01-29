@@ -16,4 +16,13 @@ export default class RoleApi {
       method: 'post'
     })
   }
+
+  // 删除角色
+  static delRole(data) {
+    return request({
+      url: '/role/delRole',
+      method: 'post',
+      data,
+    })
+  }
 }
