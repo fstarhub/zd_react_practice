@@ -19,6 +19,7 @@ export default class Update_form extends Component {
   }
   render() {
     const { roleList } = this.state
+    const { user } = this.props
     return (
       <>
         <Form
@@ -28,6 +29,14 @@ export default class Update_form extends Component {
           wrapperCol={{span: 19}}
           onFinish={this.onFinish}
           onFinishFailed={this.onFinishFailed}
+          initialValues={{
+            user_name: user.user_name,
+            password: '',
+            is_admin: user.is_admin,
+            user_phone: user.user_phone,
+            user_mailbox: user.user_mailbox,
+            role_id: user.role_id
+          }}
           autoComplete='off'
         >
           <Form.Item
@@ -46,7 +55,7 @@ export default class Update_form extends Component {
           </Form.Item>
           <Form.Item
             label="是否管理员"
-            name="isAdmin"
+            name="is_admin"
             rules={[{ required: true, message: '此选项必填' }]}
           >
             <Select
@@ -90,10 +99,10 @@ export default class Update_form extends Component {
           <Row>
             <Col span={24} style={{ textAlign: 'right' }}>
             <Button onClick={this.props.closeUpdateUserForm}>
-                取消
+              取消
             </Button>
             <Button type="primary" htmlType="submit" style={{ margin: '0 8px' }}>
-                添加
+              {this.props.addOrEdit ? '更新' : '添加'}
             </Button>
             </Col>
           </Row>
@@ -115,15 +124,27 @@ export default class Update_form extends Component {
   }
 
   onFinish = (param) => {
-    UserApi.newAdd(param).then(res => {
-      if (res.message === 'Success') {
-        message.success('新增用户成功')
-        this.props.closeUpdateUserForm()
-        this.props.updateUser() // 刷新页面
-      } else {
-        message.warning(res.message)
-      }
-    })
+    if (!this.props.addOrEdit) {
+      UserApi.newAdd(param).then(res => {
+        if (res.message === 'Success') {
+          message.success('新增用户成功')
+          this.props.closeUpdateUserForm()
+          this.props.updateUser() // 刷新页面
+        } else {
+          message.warning(res.message)
+        }
+      })
+    } else {
+      UserApi.editOne(param).then(res => {
+        if (res.message === 'Success') {
+          message.success('修改用户信息成功')
+          this.props.closeUpdateUserForm()
+          this.props.updateUser() // 刷新页面
+        } else {
+          message.warning(res.message)
+        }
+      })
+    }
   }
   onFinishFailed = () => {
 

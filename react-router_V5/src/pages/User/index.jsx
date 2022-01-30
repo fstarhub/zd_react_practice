@@ -13,10 +13,12 @@ export default class User extends Component {
     loading: false,
     userList: [],
     editUserVisible: false,
-    titleName: ''
+    titleName: '',
+    user: [],
+    addOrEdit: false,  // false: 新增，true: 修改
   }
   render() {
-    const { loading, userList, editUserVisible, titleName } = this.state
+    const { loading, userList, editUserVisible, titleName, user, addOrEdit } = this.state
     const title = (
       <span>
         <Button type='primary' onClick={this.addUser}>创建用户</Button>
@@ -58,7 +60,7 @@ export default class User extends Component {
           </Table>
         </Card>
         <Modal destroyOnClose footer={null} title={titleName} visible={editUserVisible} onCancel={this.closeEditUserVisible}>
-          <UpdateForm closeUpdateUserForm={this.closeEditUserVisible} updateUser={this.updateUser} />
+          <UpdateForm user={user} addOrEdit={addOrEdit} closeUpdateUserForm={this.closeEditUserVisible} updateUser={this.updateUser} />
         </Modal>
       </>
     )
@@ -81,20 +83,23 @@ export default class User extends Component {
   addUser = () => {
     this.setState({
       editUserVisible: true,
-      titleName: '新增用户'
+      titleName: '新增用户',
+      addOrEdit: false,
+      user: []
     })
   }
 
   editUser = (param) => {
-    console.log(param)
+    // console.log(param)
     this.setState({
       editUserVisible: true,
-      titleName: '修改用户信息'
+      titleName: '修改用户信息',
+      user: param,
+      addOrEdit: true
     })
   }
 
   deleteUser = (id, user_name) => {
-    console.log('eeee')
     const param = {
       id,
       user_name

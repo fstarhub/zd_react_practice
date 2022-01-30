@@ -48,6 +48,14 @@ export default class UserApi {
       data,
     })
   }
+  // 修改用户信息
+  static editOne(data) {
+    return request({
+      url: '/users/editOne',
+      method: 'post',
+      data,
+    })
+  }
 
   static test() {
     console.log('ceshi')
