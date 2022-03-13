@@ -19,6 +19,7 @@ import Bar from '../Charts/bar'
 import Line from '../Charts/line'
 import Pie from '../Charts/pie'
 import Error from '../Error'
+import Test from '../Test'
 
 export default class Admin extends Component {
 
@@ -45,6 +46,7 @@ export default class Admin extends Component {
               <Route path="/product" component={Product}></Route>
               <Route path="/user" component={User}></Route>
               <Route path="/role" component={Role}></Route>
+              <Route path="/Test" component={Test}></Route>
               <Route path="/charts/bar" component={Bar}></Route>
               <Route path="/charts/line" component={Line}></Route>
               <Route path="/charts/pie" component={Pie}></Route>
