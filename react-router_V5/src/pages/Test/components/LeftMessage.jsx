@@ -17,6 +17,7 @@ export default class LeftMessage extends Component {
         <Table
           dataSource={data}
           bordered
+          middle
           pagination={false}
         >
           <ColumnGroup title="Name">

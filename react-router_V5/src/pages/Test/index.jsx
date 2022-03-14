@@ -1,10 +1,19 @@
+/*
+ * @Description: 
+ * @Autor: fengshuai
+ * @Date: 2022-03-14 08:56:03
+ * @LastEditors: fengshuai
+ * @LastEditTime: 2022-03-14 09:06:42
+ */
 import React, { Component } from 'react'
 import './index.less'
 import HeaderArea from './components/Header';
 import LeftMessage from './components/LeftMessage';
 import RightMessage from './components/RightMessage';
+import MessageRow from './components/MessageRow';
+import ContentRow from './components/Content';
 import { Layout, Row, Col } from 'antd'
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
 
 
 
@@ -16,7 +25,10 @@ export default class Test extends Component {
           <Header className='headerRow marginClass'>
             <HeaderArea></HeaderArea>
           </Header>
-          <Row className="messageRow marginClass"s>
+          <Row className='marginClass messageRow' >
+            <MessageRow />
+          </Row>
+          <Row className="marginClass">
             <Col span={14}>
               <LeftMessage />
             </Col>
@@ -25,7 +37,7 @@ export default class Test extends Component {
             </Col>
           </Row>
           <Content className='marginClass'>
-            content
+            <ContentRow />
           </Content>
           {/* <Footer className='marginClass'>Footer</Footer> */}
         </Layout>
