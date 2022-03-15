@@ -50,11 +50,11 @@ const menuList = [
     key: '/role',
     icon: <SafetyOutlined/>
   },
-  {
-    title: 'test',
-    key: '/test',
-    icon: <SafetyOutlined/>
-  },
+  // {
+  //   title: 'test',
+  //   key: '/test',
+  //   icon: <SafetyOutlined/>
+  // },
   {
     title: '图形图表',
     key: '/charts',
