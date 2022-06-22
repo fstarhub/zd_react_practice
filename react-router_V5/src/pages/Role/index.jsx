@@ -3,9 +3,10 @@
  * @Autor: fengshuai
  * @Date: 2022-01-14 09:19:04
  * @LastEditors: fengshuai
- * @LastEditTime: 2022-03-13 16:22:47
+ * @LastEditTime: 2022-06-22 10:27:08
  */
 import React, { Component } from 'react'
+import moment from 'moment'
 
 import RoleApi from '../../api/role'
 import AddForm from '../../components/Role/add_form'
@@ -50,8 +51,12 @@ export default class Role extends Component {
             }}
             >
               <Column title="角色名称" dataIndex={'role_name'} key="role_name" align='center' />
-              <Column title="创建时间" dataIndex={'createdAt'} key="createdAt" align='center' />
-              <Column title="更新时间" dataIndex={'updatedAt'} key="updatedAt" align='center' />
+              <Column title="创建时间" dataIndex={'createdAt'} key="createdAt" align='center' render={(text) => {
+                return moment(text).format('YYYY-MM-DD hh:mm:ss')
+              }} />
+              <Column title="更新时间" dataIndex={'updatedAt'} key="updatedAt" align='center' render={(text) => {
+                return moment(text).format('YYYY-MM-DD hh:mm:ss')
+              }} />
               <Column title="操作"  key="operator" align='center'
                 render={(text) => {
                   return (
