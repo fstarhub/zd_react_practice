@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { Button, Card, message, Table, Space, Modal, Popconfirm } from 'antd'
 
 import UpdateForm from '../../components/User/update_form'
@@ -43,7 +44,9 @@ export default class User extends Component {
               <Column title="角色名称" dataIndex={'role_name'} key="role_name" align='center' />
               <Column title="用户电话" dataIndex={'user_phone'} key="user_phone" align='center' />
               <Column title="用户邮箱" dataIndex={'user_mailbox'} key="user_mailbox" align='center' />
-              <Column title="创建时间" dataIndex={'createdAt'} key="createdAt" align='center' />
+              <Column title="创建时间" dataIndex={'createdAt'} key="createdAt" align='center' render={(text) => {
+                return moment(text).format('YYYY-MM-DD hh:mm:ss')
+              }} />
               <Column title="操作" key="operate" align='center' width={'300px'}
                 render={(text) => {
                   return (

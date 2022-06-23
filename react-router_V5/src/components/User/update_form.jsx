@@ -19,7 +19,7 @@ export default class Update_form extends Component {
   }
   render() {
     const { roleList } = this.state
-    const { user } = this.props
+    const { user, addOrEdit } = this.props
     return (
       <>
         <Form
@@ -30,12 +30,12 @@ export default class Update_form extends Component {
           onFinish={this.onFinish}
           onFinishFailed={this.onFinishFailed}
           initialValues={{
-            user_name: user.user_name,
+            user_name: addOrEdit ? user.user_name : '',
             password: '',
-            is_admin: user.is_admin,
-            user_phone: user.user_phone,
-            user_mailbox: user.user_mailbox,
-            role_id: user.role_id
+            is_admin: addOrEdit ? user.is_admin : '',
+            user_phone: addOrEdit ? user.user_phone : '',
+            user_mailbox: addOrEdit ? user.user_mailbox : '',
+            role_id: addOrEdit ? user.role_id : '',
           }}
           autoComplete='off'
         >
@@ -44,15 +44,24 @@ export default class Update_form extends Component {
             name="user_name"
             rules={[{ required: true, message: '请输入用户名' }]}
           >
-            <Input />
+            <Input disabled={addOrEdit} />
           </Form.Item>
-          <Form.Item
-            label="密码"
-            name="password"
-            rules={[{ required: true, message: '请输入用户密码' }]}
-          >
-            <Input.Password autoComplete="true" />
-          </Form.Item>
+          {
+            !addOrEdit ? (<Form.Item
+              label="密码"
+              name="password"
+              rules={[{ required: true, message: '请输入用户密码' }]}
+            >
+              <Input.Password autoComplete="true" />
+            </Form.Item>) : (<></>)
+          }
+           {/* <Form.Item
+             label="密码"
+             name="password"
+             rules={[{ required: true, message: '请输入用户密码' }]}
+           >
+             <Input.Password autoComplete="true" />
+           </Form.Item> */}
           <Form.Item
             label="是否管理员"
             name="is_admin"
