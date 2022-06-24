@@ -1,6 +1,14 @@
+/*
+ * @Description: 
+ * @Autor: fengshuai
+ * @Date: 2022-05-23 14:48:34
+ * @LastEditors: fengshuai
+ * @LastEditTime: 2022-06-24 17:15:07
+ */
 import React, { Component } from 'react'
 
 import AMapLoader from '@amap/amap-jsapi-loader';
+import { notification , Radio, Space } from 'antd';
 
 import './index.less'
 
@@ -8,14 +16,30 @@ export default class Home extends Component {
   constructor() {
     super()
     this.map = {}
+    this.infoWindow = {}
+  }
+  state = {
+    selectValue: 1
   }
   render() {
+
+    const { selectValue } = this.state
     return (
       // <div className='welcomePage'>
       //   <span className='welcomeTitle'>欢迎使用洋码头</span>
       // </div>
-      <div id="container">
-        
+      <div className='containerBox'>
+        <div id="container" onClick={this.clickMap}></div>
+        <div className="info">
+        <Radio.Group onChange={this.selectOnChange} value={selectValue}>
+          <Space direction="vertical">
+            <Radio value={1}>提示经纬度值</Radio>
+            <Radio value={2}>B</Radio>
+            <Radio value={3}>C</Radio>
+            <Radio value={4}>D</Radio>
+          </Space>
+        </Radio.Group>
+        </div>
       </div>
     )
   }
@@ -31,13 +55,34 @@ export default class Home extends Component {
       "plugins": [],           // 需要使用的的插件列表，如比例尺'AMap.Scale'等
     }).then((AMap)=>{
       this.map = new AMap.Map('container', {
-        zoom:11,//级别
+        zoom:12,//级别
         center: [116.397428, 39.90923],//中心点坐标
         viewMode: '2D',  //设置地图模式
         lang:'zh_cn',  //设置地图语言类型
+        isHotspot: true
       });
     }).catch(e => {
         console.log(e);
     })
+  }
+
+  selectOnChange = (e) => {
+    // console.log(e.target.value)
+    this.setState({selectValue: e.target.value})
+  }
+
+  clickMap = () => {
+    this.map.on('click', this.showLangT)
+  }
+  showLangT = (e) => {
+    console.log(e)
+    let text = '您在[' + e.lnglat.getLng()+','+e.lnglat.getLat() + ']的位置点击了地图!'
+    notification.open({
+      message: '经纬度信息',
+      description: text,
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
   }
 }
