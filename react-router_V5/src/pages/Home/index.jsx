@@ -3,7 +3,7 @@
  * @Autor: fengshuai
  * @Date: 2022-05-23 14:48:34
  * @LastEditors: fengshuai
- * @LastEditTime: 2022-06-24 17:15:07
+ * @LastEditTime: 2022-06-27 14:10:00
  */
 import React, { Component } from 'react'
 
@@ -34,9 +34,9 @@ export default class Home extends Component {
         <Radio.Group onChange={this.selectOnChange} value={selectValue}>
           <Space direction="vertical">
             <Radio value={1}>提示经纬度值</Radio>
-            <Radio value={2}>B</Radio>
-            <Radio value={3}>C</Radio>
-            <Radio value={4}>D</Radio>
+            <Radio value={2}>获取当前行政区</Radio>
+            <Radio value={3}>添加marker</Radio>
+            <Radio value={4}>添加图层</Radio>
           </Space>
         </Radio.Group>
         </div>
@@ -69,13 +69,15 @@ export default class Home extends Component {
   selectOnChange = (e) => {
     // console.log(e.target.value)
     this.setState({selectValue: e.target.value})
+    // this.map.on('moveend', this.moveMap)
   }
 
   clickMap = () => {
     this.map.on('click', this.showLangT)
+    // this.map.on('moveend', this.moveMap)
   }
   showLangT = (e) => {
-    console.log(e)
+    // console.log(e)
     let text = '您在[' + e.lnglat.getLng()+','+e.lnglat.getLat() + ']的位置点击了地图!'
     notification.open({
       message: '经纬度信息',
@@ -84,5 +86,11 @@ export default class Home extends Component {
         console.log('Notification Clicked!');
       },
     });
+  }
+
+  moveMap = () => {
+    this.map.getCity(function(info) {
+      console.log(info);
+    })
   }
 }
