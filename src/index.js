@@ -6,14 +6,17 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+// import 'default-passive-events' // 阻止控制开鼠标事件警告
 
 import store from './redux/store'
 
-// import zhCN from 'antd/lib/locale/zh_CN';
-// import moment from 'moment';
-// import 'moment/locale/zh-cn';
+import {ConfigProvider} from 'antd'
+// 由于 antd 组件的默认文案是英文，所以需要修改为中文
+import zhCN from 'antd/lib/locale/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn'
 import 'antd/dist/antd.css';
-// moment.locale('zh-cn')
+moment.locale('zh-cn')
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -22,9 +25,11 @@ import 'antd/dist/antd.css';
 //   document.getElementById('root')
 // );
 ReactDOM.render(
-  <BrowserRouter>
+  <ConfigProvider locale={zhCN}>
+    <BrowserRouter>
     <Provider store={store} ><App /></Provider>
-  </BrowserRouter>,
+  </BrowserRouter>
+  </ConfigProvider>,
   document.getElementById('root')
 );
 

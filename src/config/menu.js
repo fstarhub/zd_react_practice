@@ -18,7 +18,7 @@ import {
 const menuList = [
   {
     title: '首页', // 菜单标题名称
-    key: "/admin/home",// 对应的 path
+    key: "/home",// 对应的 path
     icon: <HomeOutlined/>, // 图标名称
     isPublic: true  //所有用户都可以访问这个页面，针对权限
   },
@@ -30,26 +30,31 @@ const menuList = [
       // 子菜单列表
       {
         title: '品类管理',
-        key: '/admin/category',
+        key: '/category',
         icon: <BarsOutlined/>
       },
       {
         title: '商品管理',
-        key: '/admin/product',
+        key: '/product',
         icon: <ToolOutlined/>
       }
     ]
   },
   {
     title: '用户管理',
-    key: '/admin/user',
+    key: '/user',
     icon: <UserOutlined/>
   },
   {
     title: '角色管理',
-    key: '/admin/role',
+    key: '/role',
     icon: <SafetyOutlined/>
   },
+  // {
+  //   title: 'test',
+  //   key: '/test',
+  //   icon: <SafetyOutlined/>
+  // },
   {
     title: '图形图表',
     key: '/charts',
@@ -57,16 +62,16 @@ const menuList = [
     children: [
       {
         title: '柱形图',
-        key: '/admin/charts/bar',
+        key: '/charts/bar',
         icon: <BarChartOutlined />
       },
       {
         title: '折线图',
-        key: '/admin/charts/line',
+        key: '/charts/line',
         icon: <LineChartOutlined/>
       }, {
         title: '饼图',
-        key: '/admin/charts/pie',
+        key: '/charts/pie',
         icon: <PieChartOutlined/>
       },
     ]

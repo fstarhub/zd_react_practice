@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { Layout, Menu } from 'antd'
 import './index.less'
@@ -18,6 +18,8 @@ import Role from '../Role'
 import Bar from '../Charts/bar'
 import Line from '../Charts/line'
 import Pie from '../Charts/pie'
+import Error from '../Error'
+import Test from '../Test'
 
 export default class Admin extends Component {
 
@@ -27,7 +29,7 @@ export default class Admin extends Component {
   render() {
     if (!getUser()) {
       return (
-        <Navigate to='/login' element={<Login />} />
+        <Redirect to='/login' />
       )
     }
     return (
@@ -37,17 +39,19 @@ export default class Admin extends Component {
         <Layout className="site-layout">
           <HeaderNav collapsed={this.state.collapsed} updateCollapsed={this.newCollapsed} />
           <ContentNav>
-            <Routes>
-              <Route index path="/home" element={<Home />}></Route>
-              <Route path="/category" element={<Category />}></Route>
-              <Route path="/product" element={<Product />}></Route>
-              <Route path="/user" element={<User />}></Route>
-              <Route path="/role" element={<Role />}></Route>
-              <Route path="/charts/bar" element={<Bar />}></Route>
-              <Route path="/charts/line" element={<Line />}></Route>
-              <Route path="/charts/pie" element={<Pie />}></Route>
-              <Route path="*" element={<Home />}></Route>
-            </Routes>
+            <Switch>
+              <Redirect exact from="/" to="/home" component={Home}></Redirect>
+              <Route path="/home" component={Home}></Route>
+              <Route path="/category" component={Category}></Route>
+              <Route path="/product" component={Product}></Route>
+              <Route path="/user" component={User}></Route>
+              <Route path="/role" component={Role}></Route>
+              <Route path="/Test" component={Test}></Route>
+              <Route path="/charts/bar" component={Bar}></Route>
+              <Route path="/charts/line" component={Line}></Route>
+              <Route path="/charts/pie" component={Pie}></Route>
+              <Route component={Error}></Route>
+            </Switch>
           </ContentNav>
         </Layout>
         </Layout>

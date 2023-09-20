@@ -1,26 +1,22 @@
 import React, { Component, Fragment } from 'react'
-import { Routes,Route } from 'react-router-dom'
-
-import { setUser } from './utils/cookie'
+import { Switch,Route } from 'react-router-dom'
 
 import Login from './pages/Login'
 import Admin from './pages/Admin'
+import Register from './pages/Register'
 
 export default class App extends Component {
   render() {
     return (
       <Fragment>
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/admin/*" element={<Admin />}></Route>
-          <Route path="*" element={<Login />}></Route>
-        </Routes>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
+          <Route path="/" component={Admin}></Route>
+        </Switch>
       </Fragment>
     )
   }
 
-  componentDidMount() {
-    setUser('shuai')
-  }
 }
 
